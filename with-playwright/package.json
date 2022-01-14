@@ -1,5 +1,5 @@
 {
-  "name": "zenika-alpinechrome-withplaywright",
+  "name": "bootstraps-alpinechrome-withplaywright",
   "version": "1.0.0",
   "description": "Tests with playwright",
   "scripts": {
@@ -8,11 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zenika/alpine-chrome.git"
+    "url": "git+https://github.com/boot-straps/alpine-chrome.git"
   },
-  "author": "jlandure",
+  "author": "widjajaa",
   "license": "MIT",
   "dependencies": {
-    "playwright-chromium": "^1.7.1"
+    "playwright-chromium": "^1.15.0"
   }
 }

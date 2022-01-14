@@ -1,10 +1,45 @@
+# alpine-chrome
+
+Chrome running in headless mode in a tiny Alpine image (fork from zenika)
+
+- Remote debugging with alpine-chrome
+
+```sh
+# Version: Alpine@v3.15 chromium-96.0.4664.110-r0
+docker container run -d -p 9222:9222 bootstraps/alpine-chrome --no-sandbox --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 https://www.chromestatus.com/
+```
+
+- Remote debugging with alpine-chrome-with-node
+
+```sh
+# Version: Alpine@v3.15 chromium-96.0.4664.110-r0 node@v16.13.2 yarn@1.22.17
+docker container run -d -p 9222:9222 bootstraps/alpine-chrome:with-node chromium-browser --headless --use-gl=swiftshader --disable-software-rasterizer --disable-d
+ev-shm-usage --no-sandbox --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 https://www.chromestatus.com/
+```
+
+- Run Playwright
+
+```sh
+# Version: Alpine@v3.15 chromium-96.0.4664.110-r0 node@v16.13.2 yarn@1.22.17 playwright-chromium@1.15.0
+docker container run -it --rm -v $(pwd)/src:/usr/src/app/src --cap-add=SYS_ADMIN ${IMAGE_NAME} node src/useragent.js
+```
+
+## Supported tags and respective `Dockerfile` links
+
+- `latest`, `96` [(Dockerfile)](https://github.com/boot-straps/alpine-chrome/blob/master/Dockerfile)
+- `with-node`, `96-with-node`, `96-with-node-16` [(Dockerfile)](https://github.com/boot-straps/alpine-chrome/blob/master/with-node/Dockerfile)
+- `with-playwright`, `96-with-playwright` [(Dockerfile)](https://github.com/boot-straps/alpine-chrome/blob/master/with-playwright/Dockerfile)
+
+---
+=== Original Repository - stalled since chromium 89 ===
+
 [![GitHub Stars](https://img.shields.io/github/stars/zenika/alpine-chrome)](https://github.com/Zenika/alpine-chrome/) [![Docker Build Status](https://img.shields.io/docker/cloud/build/zenika/alpine-chrome.svg)](https://hub.docker.com/r/zenika/alpine-chrome/) [![Docker Pulls](https://img.shields.io/docker/pulls/zenika/alpine-chrome.svg)](https://hub.docker.com/r/zenika/alpine-chrome/) [![Layers](https://images.microbadger.com/badges/image/zenika/alpine-chrome.svg)](https://microbadger.com/images/zenika/alpine-chrome) [![Version](https://images.microbadger.com/badges/version/zenika/alpine-chrome.svg)](https://microbadger.com/images/zenika/alpine-chrome) [![Docker Stars](https://img.shields.io/docker/stars/zenika/alpine-chrome.svg)](https://hub.docker.com/r/zenika/alpine-chrome/)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-39-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-# Available registries
+## Available registries
 
 Following the changes with the [Rate Limiting on Docker Hub](https://www.docker.com/increase-rate-limits). [Tweet here for more information in 🇫🇷](https://twitter.com/jlandure/status/1322474352554770432)
 - On the [Docker Hub](https://hub.docker.com/r/zenika/alpine-chrome) without any prefix: `zenika/alpine-chrome`
@@ -14,7 +49,7 @@ Following the changes with the [Rate Limiting on Docker Hub](https://www.docker.
   - Asia: `asia.gcr.io/zenika-hub/alpine-chrome`
   - US: `us.gcr.io/zenika-hub/alpine-chrome`
 
-# Supported tags and respective `Dockerfile` links
+## Supported tags and respective `Dockerfile` links
 
 - `latest`, `89` [(Dockerfile)](https://github.com/Zenika/alpine-chrome/blob/master/Dockerfile)
 - `with-node`, `89-with-node`, `89-with-node-14` [(Dockerfile)](https://github.com/Zenika/alpine-chrome/blob/master/with-node/Dockerfile)
@@ -26,16 +61,16 @@ Following the changes with the [Rate Limiting on Docker Hub](https://www.docker.
 - `86-with-node`, `85-with-node`, `84-with-node`, `83-with-node`, `81-with-node`, `80-with-node`, `77-with-node`, `76-with-node`
 - `86-with-puppeteer`, `85-with-puppeteer`,`84-with-puppeteer`, `83-with-puppeteer`, `81-with-puppeteer`, `80-with-puppeteer`, `77-with-puppeteer`, `76-with-puppeteer`
 
-# alpine-chrome
+## alpine-chrome
 
 Chrome running in headless mode in a tiny Alpine image
 ****
 
-# 🤔 Why use a Headless Chrome
+## 🤔 Why use a Headless Chrome
 
 In the world of webdev, the ability to run quickly end-to-end tests are important. Popular technologies like Puppeteer enable developers to make fun things like testing, automating forms, crawling, generating screenshots, capturing timeline... And there is a secret: some of these features are directly available on Chrome! 🙌
 
-## 💡 Crafting the perfect container
+### 💡 Crafting the perfect container
 
 - 📦 Tiniest Headless Chrome (Compressed size: [162.62MB](https://github.com/Zenika/alpine-chrome#image-disk-size))
 - 🐳 Easy to use, ephemeral and reproducible Headless Chrome with Docker
@@ -49,15 +84,15 @@ In the world of webdev, the ability to run quickly end-to-end tests are importan
 - 👥 Community-built with external contributors - [See "✨ Contributors" section](https://github.com/Zenika/alpine-chrome#-contributors)
 - 💚 Dev-friendly with examples using NodeJS, Puppeteer, docker-compose and also a test with a X11 display - [See "Run examples" section](https://github.com/Zenika/alpine-chrome#run-examples)
 
-# 3 ways to securely use Chrome Headless with this image
+## 3 ways to securely use Chrome Headless with this image
 
-## ❌ With nothing
+### ❌ With nothing
 
 Launching the container using only `docker container run -it zenika/alpine-chrome ...` will fail with some logs similar to [#33](https://github.com/Zenika/alpine-chrome/issues/33).
 
 Please use the 3 others ways to use Chrome Headless.
 
-## ✅ With `--no-sandbox`
+### ✅ With `--no-sandbox`
 
 Launch the container using:
 
@@ -67,14 +102,14 @@ Be careful to know the website you're calling.
 
 Explanation for the `no-sandbox` flag in a [quick introduction here](https://www.google.com/googlebooks/chrome/med_26.html) and for [More in depth design document here](https://chromium.googlesource.com/chromium/src/+/master/docs/design/sandbox.md)
 
-## ✅ With `SYS_ADMIN` capability
+### ✅ With `SYS_ADMIN` capability
 
 Launch the container using:
 `docker container run -it --rm --cap-add=SYS_ADMIN zenika/alpine-chrome`
 
 This allows to run Chrome with sandboxing but needs unnecessary privileges from a Docker point of view.
 
-## ✅ The best: With `seccomp`
+### ✅ The best: With `seccomp`
 
 Thanks to ever-awesome Jessie Frazelle seccomp profile for Chrome. This is The most secure way to run this Headless Chrome docker image.
 
@@ -85,15 +120,15 @@ Also available here `wget https://raw.githubusercontent.com/jfrazelle/dotfiles/m
 Launch the container using:
 `docker container run -it --rm --security-opt seccomp=$(pwd)/chrome.json zenika/alpine-chrome`
 
-# How to use in command line
+## How to use in command line
 
-## Default entrypoint
+### Default entrypoint
 
 The default entrypoint does the following command: `chromium-browser --headless --disable-gpu --disable-software-rasterizer --disable-dev-shm-usage`
 
 You can get full control by overriding the entrypoint using: `docker container run -it --rm --entrypoint "" zenika/alpine-chrome chromium-browser ...`
 
-## Use the devtools
+### Use the devtools
 
 Command (with no-sandbox): `docker container run -d -p 9222:9222 zenika/alpine-chrome --no-sandbox --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 https://www.chromestatus.com/`
 
@@ -102,31 +137,31 @@ Open your browser to: `http://localhost:9222` and then click on the tab you want
 by
 `chrome-devtools://devtools/bundled/inspector.html?ws=localhost:9222/[END]`
 
-## Print the DOM
+### Print the DOM
 
 Command (with no-sandbox): `docker container run -it --rm zenika/alpine-chrome --no-sandbox --dump-dom https://www.chromestatus.com/`
 
-## Print a PDF
+### Print a PDF
 
 Command (with no-sandbox): `docker container run -it --rm -v $(pwd):/usr/src/app zenika/alpine-chrome --no-sandbox --print-to-pdf --hide-scrollbars https://www.chromestatus.com/`
 
-## Take a screenshot
+### Take a screenshot
 
 Command (with no-sandbox): `docker container run -it --rm -v $(pwd):/usr/src/app zenika/alpine-chrome --no-sandbox --screenshot --hide-scrollbars https://www.chromestatus.com/`
 
-### Size of a standard letterhead.
+#### Size of a standard letterhead.
 
 Command (with no-sandbox): `docker container run -it --rm -v $(pwd):/usr/src/app zenika/alpine-chrome --no-sandbox --screenshot --hide-scrollbars --window-size=1280,1696 https://www.chromestatus.com/`
 
-### Nexus 5x
+#### Nexus 5x
 
 Command (with no-sandbox): `docker container run -it --rm -v $(pwd):/usr/src/app zenika/alpine-chrome --no-sandbox --screenshot --hide-scrollbars --window-size=412,732 https://www.chromestatus.com/`
 
-### Screenshot owned by current user (by default the file is owned by the container user)
+#### Screenshot owned by current user (by default the file is owned by the container user)
 
 Command (with no-sandbox): `` docker container run -u `id -u $USER` -it --rm -v $(pwd):/usr/src/app zenika/alpine-chrome --no-sandbox --screenshot --hide-scrollbars --window-size=412,732 https://www.chromestatus.com/ ``
 
-# How to use with Deno
+## How to use with Deno
 
 Go the deno `src` folder. Build your image using this command:
 
@@ -154,7 +189,7 @@ Warning Implicitly using master branch https://deno.land/std/fmt/colors.ts
 Hello world!
 ```
 
-# How to use with Puppeteer
+## How to use with Puppeteer
 
 With tool like ["Puppeteer"](https://pptr.dev/#?product=Puppeteer&version=v1.15.0&show=api-class-browser), we can add a lot things with our Chrome Headless.
 
@@ -180,7 +215,7 @@ These websites are tested with the following supported languages:
 - Japanese (with `https://www.yahoo.co.jp/`)
 - Korean (with `https://www.naver.com/`)
 
-# How to use with Playwright
+## How to use with Playwright
 
 Like ["Puppeteer"](https://pptr.dev/#?product=Puppeteer&version=v6.0.0&show=api-class-browser), we can do a lot things using ["Playwright"](https://playwright.dev/docs/core-concepts/#browser) with our Chrome Headless.
 
@@ -192,7 +227,7 @@ docker container run -it --rm -v $(pwd)/src:/usr/src/app/src --cap-add=SYS_ADMIN
 
 A `example-chromium.png` file will be created in your `with-playwright/src` folder.
 
-# How to use with WebGL
+## How to use with WebGL
 
 By default, this image works with WebGL.
 
@@ -210,12 +245,12 @@ Links:
 - https://github.com/DevExpress/testcafe/issues/2116
 - 'use-gl' values [here](https://cs.chromium.org/chromium/src/ui/gl/gl_switches.cc?type=cs&q=kUseGL&sq=package:chromium&g=0&l=69)
 
-# How to use with Chromedriver
+## How to use with Chromedriver
 
 [ChromeDriver](https://chromedriver.chromium.org/home) is a separate executable that Selenium WebDriver uses to control Chrome.
 You can use this image as a base for your Docker based selenium tests. See [Guide for running Selenium tests using Chromedriver](https://www.browserstack.com/guide/run-selenium-tests-using-selenium-chromedriver).
 
-# How to use with Selenoid
+## How to use with Selenoid
 
 [Selenoid](https://github.com/aerokube/selenoid) is a powerful implementation of Selenium hub using Docker containers to launch browsers.
 Even if it used to run browsers in docker containers, it can be quite useful as lightweight Selenium replacement.
@@ -235,7 +270,7 @@ and you will need to pass the `--no-sandbox` to `chromedriver`.
 
 See more [selenoid docs](https://aerokube.com/selenoid/latest/#_using_selenoid_without_docker)
 
-# Run as root and override default entrypoint
+## Run as root and override default entrypoint
 
 We can run the container as root with this command:
 
@@ -243,7 +278,7 @@ We can run the container as root with this command:
 docker container run --rm -it --entrypoint "" --user root zenika/alpine-chrome sh
 ```
 
-# Run examples
+## Run examples
 
 Some examples are available on the `examples` [directory](examples):
 
@@ -251,7 +286,7 @@ Some examples are available on the `examples` [directory](examples):
 - ☸️ [kubernetes](https://github.com/Zenika/alpine-chrome/tree/master/examples/k8s) to launch a pod with a headless chrome
 - 🖥 [x11](https://github.com/Zenika/alpine-chrome/blob/master/examples/x11) to experiment this image with a X11 server.
 
-# References
+## References
 
 - Headless Chrome website: https://developers.google.com/web/updates/2017/04/headless-chrome
 
@@ -261,30 +296,30 @@ Some examples are available on the `examples` [directory](examples):
 
 - Maintained by: https://www.zenika.com
 
-# Versions (in latest)
+## Versions (in latest)
 
-## Alpine version
+### Alpine version
 
 ```
 docker container run -it --rm --entrypoint "" zenika/alpine-chrome cat /etc/alpine-release
 3.13.2
 ```
 
-## Chrome version
+### Chrome version
 
 ```
 docker container run -it --rm --entrypoint "" zenika/alpine-chrome chromium-browser --version
 Chromium 89.0.4389.72
 ```
 
-## Image disk size
+### Image disk size
 
 ```
 docker image inspect zenika/alpine-chrome --format='{{.Size}}'
 412889529
 ```
 
-# ✨ Contributors
+## ✨ Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -351,7 +386,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-# 🎉 Show your support
+## 🎉 Show your support
 
 ⭐️ this repo or [leave a comment here](https://github.com/Zenika/alpine-chrome/issues/new?template=03_thanks.md)
 
