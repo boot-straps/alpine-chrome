@@ -2,27 +2,48 @@
 
 Chrome running in headless mode in a tiny Alpine image (fork from zenika)
 
-- Remote debugging with alpine-chrome
+- Build updated containers
 
 ```sh
-# Version: Alpine@v3.15 chromium-96.0.4664.110-r0
-docker container run -d -p 9222:9222 bootstraps/alpine-chrome --no-sandbox --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 https://www.chromestatus.com/
+# alpine-chrome base image
+CONTEXT="" hooks/build.sh
+# alpine-chrome with-node image
+CONTEXT=with-node hooks/build.sh
+# alpine-chrome with-playwright image
+CONTEXT=with-playwright hooks/build.sh
 ```
 
-- Remote debugging with alpine-chrome-with-node
+- Remote debugging 
 
 ```sh
-# Version: Alpine@v3.15 chromium-96.0.4664.110-r0 node@v16.13.2 yarn@1.22.17
-docker container run -d -p 9222:9222 bootstraps/alpine-chrome:with-node chromium-browser --headless --use-gl=swiftshader --disable-software-rasterizer --disable-d
-ev-shm-usage --no-sandbox --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 https://www.chromestatus.com/
+# alpine-chrome base debugging
+CONTEXT="" hooks/debug.sh
+# alpine-chrome with-node debugging
+CONTEXT=with-node with-node/hooks/debug.sh
+# alpine-chrome with-playwright debugging
+CONTEXT=with-playwright with-playwright/hooks/debug.sh
 ```
 
-- Run Playwright
+- Test Playwright
 
 ```sh
-# Version: Alpine@v3.15 chromium-96.0.4664.110-r0 node@v16.13.2 yarn@1.22.17 playwright-chromium@1.15.0
-docker container run -it --rm -v $(pwd)/src:/usr/src/app/src --cap-add=SYS_ADMIN ${IMAGE_NAME} node src/useragent.js
+# Version: alpine@v3.15 chromium-96.0.4664.110-r0 node@v16.13.2 yarn@1.22.17 playwright-chromium@1.15.0
+# alpine-chrome with-playwright test
+CONTEXT=with-playwright with-playwright/hooks/test.sh
+# docker container run -it --rm -v $(pwd)/src:/usr/src/app/src --cap-add=SYS_ADMIN ${IMAGE_NAME} node src/useragent.js
 ```
+
+- Push images to docker registry
+
+```sh
+# alpine-chrome base debugging
+CONTEXT="" hooks/push.sh
+# alpine-chrome with-node debugging
+CONTEXT=with-node with-node/hooks/push.sh
+# alpine-chrome with-playwright debugging
+CONTEXT=with-playwright with-playwright/hooks/push.sh
+```
+
 
 ## Supported tags and respective `Dockerfile` links
 
