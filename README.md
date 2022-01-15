@@ -7,13 +7,10 @@ Chrome running in headless mode in a tiny Alpine image (fork from zenika)
 ```sh
 # alpine-chrome base image
 yarn base:build
-CONTEXT="" hooks/build.sh
 # alpine-chrome with-node image
 yarn node:build
-CONTEXT=with-node hooks/build.sh
 # alpine-chrome with-playwright image
 yarn pw:build
-CONTEXT=with-playwright hooks/build.sh
 ```
 
 - Remote debugging 
@@ -21,13 +18,10 @@ CONTEXT=with-playwright hooks/build.sh
 ```sh
 # alpine-chrome base debugging
 yarn base:debug
-CONTEXT="" hooks/debug.sh
 # alpine-chrome with-node debugging
 yarn node:debug
-CONTEXT=with-node with-node/hooks/debug.sh
 # alpine-chrome with-playwright debugging
 yarn pw:debug
-CONTEXT=with-playwright with-playwright/hooks/debug.sh
 ```
 
 - Test Playwright
@@ -36,7 +30,6 @@ CONTEXT=with-playwright with-playwright/hooks/debug.sh
 # Version: alpine@v3.15 chromium-96.0.4664.110-r0 node@v16.13.2 yarn@1.22.17 playwright-chromium@1.15.0
 # alpine-chrome with-playwright test
 yarn pw:test
-CONTEXT=with-playwright with-playwright/hooks/test.sh
 # docker container run -it --rm -v $(pwd)/src:/usr/src/app/src --cap-add=SYS_ADMIN ${IMAGE_NAME} node src/useragent.js
 ```
 
@@ -45,13 +38,10 @@ CONTEXT=with-playwright with-playwright/hooks/test.sh
 ```sh
 # alpine-chrome base repository
 yarn base:push
-CONTEXT="" hooks/push.sh
 # alpine-chrome with-node repository
 yarn node:push
-CONTEXT=with-node with-node/hooks/push.sh
 # alpine-chrome with-playwright repository
 yarn pw:push
-CONTEXT=with-playwright with-playwright/hooks/push.sh
 ```
 
 ## Migration to Yarn 3
