@@ -1,0 +1,10 @@
+{
+  "name": "@bootstraps/acnode",
+  "packageManager": "yarn@3.1.1",
+  "private": true,
+  "scripts": {
+    "node:build": "CONTEXT='with-node' hooks/build.sh",
+    "node:debug": "CONTEXT='with-node' hooks/debug.sh",
+    "node:push": "CONTEXT='with-node' hooks/push.sh"
+  }
+}

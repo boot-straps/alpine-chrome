@@ -18,6 +18,3 @@ YARN_VERSION=$(docker container run --rm --entrypoint "" ${REGISTRY}/${IMAGE_NAM
 echo Version: ${CHROMIUM_VERSION} node@${NODE_VERSION} yarn@${YARN_VERSION}
 echo docker container run -d -p ${DEBUG_PORT}:9222 --rm --name=${IMAGE_NAME}_debug ${REGISTRY}/${IMAGE_NAME}:${CONTEXT} chromium-browser --headless --use-gl=swiftshader --disable-software-rasterizer --disable-dev-shm-usage --no-sandbox --remote-debugging-address=0.0.0.0 --remote-debugging-port=${DEBUG_PORT} ${TEST_URL}
 docker container run -d -p ${DEBUG_PORT}:9222 --rm --name=${IMAGE_NAME}_debug ${REGISTRY}/${IMAGE_NAME}:${CONTEXT} chromium-browser --headless --use-gl=swiftshader --disable-software-rasterizer --disable-dev-shm-usage --no-sandbox --remote-debugging-address=0.0.0.0 --remote-debugging-port=${DEBUG_PORT} ${TEST_URL}
-
-# docker container run -d -p 9222:9222 bootstraps/alpine-chrome:with-node chromium-browser --headless --use-gl=swiftshader --disable-software-rasterizer --disable-d
-# ev-shm-usage --no-sandbox --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 https://www.chromestatus.com/

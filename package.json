@@ -1,0 +1,24 @@
+{
+  "name": "@bootstraps/alpine-chrome",
+  "packageManager": "yarn@3.1.1",
+  "private": true,
+  "scripts": {
+    "pre": "echo pre...",
+    "lint": "echo lint...",
+    "build": "echo build...",
+    "test": "echo test...",
+    "e2e": "echo e2e...",
+    "serve": "echo serve...",
+    "debug": "echo debug...",
+    "pack": "echo pack...",
+    "push": "echo push...",
+    "deploy": "echo deploy..."
+  },
+  "workspaces": [
+    "packages/*",
+    "nm-packages/*"
+  ],
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}
